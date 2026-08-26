@@ -26,7 +26,7 @@
       "avg_score": 0.526285
     }
   },
-  "failure_clusters": {
+  "cluster_analysis": {
     "matrix": {
       "faithfulness": {
         "factual": 0,
@@ -60,7 +60,9 @@
       "distribution": "multi_hop",
       "question": "Nếu cần mua một chiếc laptop 30 triệu cho nhân viên mới, ai phê duyệt và cần gì từ phòng CNTT?",
       "avg_score": 0.1854,
-      "worst_metric": "answer_relevancy"
+      "worst_metric": "answer_relevancy",
+      "diagnosis": "Answer doesn't match question",
+      "suggested_fix": "Improve prompt template"
     },
     {
       "rank": 2,
@@ -68,7 +70,9 @@
       "distribution": "multi_hop",
       "question": "Lương thử việc của nhân viên Junior mức cao nhất là bao nhiêu?",
       "avg_score": 0.1925,
-      "worst_metric": "answer_relevancy"
+      "worst_metric": "answer_relevancy",
+      "diagnosis": "Answer doesn't match question",
+      "suggested_fix": "Improve prompt template"
     },
     {
       "rank": 3,
@@ -76,7 +80,9 @@
       "distribution": "multi_hop",
       "question": "Nhân viên Manager có thâm niên 12 năm: tổng phụ cấp hàng tháng và số ngày phép năm theo v2024 là bao nhiêu?",
       "avg_score": 0.2382,
-      "worst_metric": "answer_relevancy"
+      "worst_metric": "answer_relevancy",
+      "diagnosis": "Answer doesn't match question",
+      "suggested_fix": "Improve prompt template"
     },
     {
       "rank": 4,
@@ -84,7 +90,9 @@
       "distribution": "adversarial",
       "question": "Khi phát hiện malware trên máy tính công ty, nhân viên có nên tự xử lý không?",
       "avg_score": 0.3366,
-      "worst_metric": "context_precision"
+      "worst_metric": "context_precision",
+      "diagnosis": "Too many irrelevant chunks",
+      "suggested_fix": "Add reranking or metadata filter"
     },
     {
       "rank": 5,
@@ -92,7 +100,9 @@
       "distribution": "adversarial",
       "question": "Nhân viên Manager có thể dùng VPN cá nhân (như NordVPN) khi WFH để tăng bảo mật thêm không?",
       "avg_score": 0.3433,
-      "worst_metric": "context_precision"
+      "worst_metric": "context_precision",
+      "diagnosis": "Too many irrelevant chunks",
+      "suggested_fix": "Add reranking or metadata filter"
     },
     {
       "rank": 6,
@@ -100,7 +110,9 @@
       "distribution": "multi_hop",
       "question": "So sánh yêu cầu mật khẩu giữa policy v1.0 và v2.0 về độ dài tối thiểu, thời hạn đổi và MFA.",
       "avg_score": 0.3576,
-      "worst_metric": "context_precision"
+      "worst_metric": "context_precision",
+      "diagnosis": "Too many irrelevant chunks",
+      "suggested_fix": "Add reranking or metadata filter"
     },
     {
       "rank": 7,
@@ -108,7 +120,9 @@
       "distribution": "multi_hop",
       "question": "So sánh quyền lợi bảo hiểm giữa nhân viên thử việc và nhân viên chính thức.",
       "avg_score": 0.4328,
-      "worst_metric": "context_precision"
+      "worst_metric": "context_precision",
+      "diagnosis": "Too many irrelevant chunks",
+      "suggested_fix": "Add reranking or metadata filter"
     },
     {
       "rank": 8,
@@ -116,7 +130,9 @@
       "distribution": "multi_hop",
       "question": "Một nhân viên Senior có 9 năm thâm niên được nghỉ bao nhiêu ngày phép năm và lương trong khoảng nào?",
       "avg_score": 0.4654,
-      "worst_metric": "context_precision"
+      "worst_metric": "context_precision",
+      "diagnosis": "Too many irrelevant chunks",
+      "suggested_fix": "Add reranking or metadata filter"
     },
     {
       "rank": 9,
@@ -124,7 +140,9 @@
       "distribution": "factual",
       "question": "Nam nhân viên được nghỉ bao nhiêu ngày khi vợ sinh con?",
       "avg_score": 0.4682,
-      "worst_metric": "context_precision"
+      "worst_metric": "context_precision",
+      "diagnosis": "Too many irrelevant chunks",
+      "suggested_fix": "Add reranking or metadata filter"
     },
     {
       "rank": 10,
@@ -132,7 +150,9 @@
       "distribution": "multi_hop",
       "question": "Nhân viên có thâm niên 7 năm theo v2024 được nghỉ bao nhiêu ngày phép? Nếu bị trừ thêm 4 ngày ốm không có giấy y tế thì còn lại bao nhiêu?",
       "avg_score": 0.4716,
-      "worst_metric": "context_precision"
+      "worst_metric": "context_precision",
+      "diagnosis": "Too many irrelevant chunks",
+      "suggested_fix": "Add reranking or metadata filter"
     }
   ]
 }

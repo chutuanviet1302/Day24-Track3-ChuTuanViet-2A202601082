@@ -86,20 +86,21 @@ def save_phase_a_report(results: list[RagasResult], clusters: dict,
                 "avg_score":         sum(r.avg_score for r in subset) / len(subset),
             }
 
+    # Use bottom_10() to ensure diagnosis + suggested_fix are always included
+    b10 = bottom_10(results)
+
+    # Use cluster_analysis() to ensure matrix is always computed and stored
+    cluster_data = cluster_analysis(results)
+
     report = {
         "total_questions": len(results),
         "per_distribution": per_dist,
-        "failure_clusters": clusters,
-        "bottom_10": [
-            {"rank": i + 1, "question_id": r.question_id, "distribution": r.distribution,
-             "question": r.question, "avg_score": round(r.avg_score, 4),
-             "worst_metric": r.worst_metric}
-            for i, r in enumerate(sorted(results, key=lambda x: x.avg_score)[:10])
-        ],
+        "cluster_analysis": cluster_data,        # Task 4: matrix 4x3 + insight
+        "bottom_10": b10,                        # Task 3: rank + diagnosis + suggested_fix
     }
     with open(path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
-    print(f"Phase A report saved → {path}")
+    print(f"Phase A report saved -> {path}")
 
 
 def group_by_distribution(test_set: list[dict]) -> dict[str, list[dict]]:

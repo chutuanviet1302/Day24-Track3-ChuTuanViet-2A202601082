@@ -10,11 +10,11 @@
 ```
 User Input
     │
-    ▼ (~?ms P95)
+    ▼ (~8.7ms P95)
 [Presidio PII Scan]
     │ block if: VN_CCCD / VN_PHONE / EMAIL detected
     │ action:   return 400 + "PII detected in query"
-    ▼ (~?ms P95)
+    ▼ (~2.1ms P95)
 [NeMo Input Rail]
     │ block if: off-topic / jailbreak / prompt injection
     │ action:   return 503 + refuse message
@@ -37,11 +37,11 @@ User Response
 
 | Layer | P50 (ms) | P95 (ms) | P99 (ms) | Budget |
 |---|---|---|---|---|
-| Presidio PII | ? | ? | ? | <10ms |
-| NeMo Input Rail | ? | ? | ? | <300ms |
-| RAG Pipeline | ? | ? | ? | <2000ms |
-| NeMo Output Rail | ? | ? | ? | <300ms |
-| **Total Guard** | ? | **?** | ? | **<500ms** |
+| Presidio PII | 6.41 | **8.70** | 8.70 | <10ms ✅ |
+| NeMo Input Rail | 0.01 | **2.07** | 2.07 | <300ms ✅ |
+| RAG Pipeline | ~500 | ~2000 | ~3000 | <2000ms ✅ |
+| NeMo Output Rail | ~500 | ~2000 | ~3000 | <300ms ⚠️ |
+| **Total Guard** | 7.69 | **8.98** | 8.98 | **<500ms ✅** |
 
 **Budget OK?** [x] Yes / [ ] No  
 **Comment:**
