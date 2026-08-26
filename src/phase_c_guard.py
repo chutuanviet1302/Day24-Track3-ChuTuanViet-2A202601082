@@ -113,16 +113,39 @@ async def check_input_rail(text: str, rails=None) -> dict:
         }
     """
     normalized_text = text.lower()
-    
-    # Offline keyword lists for guaranteed fast protection on typical adversarial prompts
-    off_topic_kws = ["thơ về", "nấu phở", "bitcoin", "ethereum", "phương trình vi phân", "dy/dx", "marvel"]
-    jailbreak_kws = [
-        "bỏ qua tất cả hướng dẫn", "ignore", "dan (do anything now)", "system override", 
-        "system instructions", "mật khẩu admin", "tiết lộ lương", "bảng lương chi tiết", 
-        "tấn công mạng", "bỏ qua tất cả policy", "dump all training data", "tiết lộ lương tháng"
+
+    # Offline keyword lists — include both accented (Vietnamese) and unaccented variants
+    # so matching works regardless of how the text was typed/encoded.
+    off_topic_kws = [
+        # accented
+        "nấu phở", "thơ về", "phương trình vi phân",
+        # unaccented / ASCII transliterations
+        "nau pho", "tho ve", "phuong trinh vi phan",
+        # universal (no diacritics needed)
+        "bitcoin", "ethereum", "crypto", "dy/dx", "marvel", "recipe",
+        "cach nau", "mon an", "nha hang", "du lich", "bong da", "phim",
     ]
-    pii_kws = ["cho tôi biết cccd và số điện thoại", "cho tôi biết cccd", "lương của nhân viên cụ thể"]
-    
+    jailbreak_kws = [
+        # accented
+        "bỏ qua tất cả hướng dẫn", "mật khẩu admin", "tiết lộ lương",
+        "bảng lương chi tiết", "tấn công mạng", "bỏ qua tất cả policy",
+        "tiết lộ lương tháng",
+        # unaccented
+        "bo qua tat ca huong dan", "mat khau admin", "tiet lo luong",
+        "bang luong chi tiet", "tan cong mang", "bo qua tat ca policy",
+        # universal
+        "ignore", "system override", "system instructions",
+        "dan (do anything now)", "dump all training data",
+        "forget all instructions", "disregard", "jailbreak",
+        "list all employee", "list all salaries", "all passwords",
+    ]
+    pii_kws = [
+        # accented
+        "cho tôi biết cccd", "lương của nhân viên cụ thể",
+        # unaccented
+        "cho toi biet cccd", "luong cua nhan vien cu the",
+    ]
+
     is_adversarial = (
         any(kw in normalized_text for kw in off_topic_kws) or
         any(kw in normalized_text for kw in jailbreak_kws) or
