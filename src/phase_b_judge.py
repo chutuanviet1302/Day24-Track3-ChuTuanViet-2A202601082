@@ -28,7 +28,8 @@ class JudgeResult:
 
 # ─── Task 5: Pairwise Judge ───────────────────────────────────────────────────
 
-def pairwise_judge(question: str, answer_a: str, answer_b: str) -> dict:
+def pairwise_judge(question: str, answer_a: str, answer_b: str,
+                   ground_truth: str = "") -> dict:
     """Task 5: Gọi LLM để chọn answer tốt hơn (A hoặc B) theo 3 tiêu chí.
 
     Tiêu chí đánh giá:
@@ -39,9 +40,10 @@ def pairwise_judge(question: str, answer_a: str, answer_b: str) -> dict:
     Returns:
         {"winner": "A"|"B"|"tie", "reasoning": str, "scores": {"A": float, "B": float}}
     """
+    gt_block = f"\nGround Truth (dùng để đánh giá độ chính xác): {ground_truth}" if ground_truth else ""
     PROMPT_TEMPLATE = '''Bạn là một expert đánh giá chất lượng câu trả lời RAG.
 
-Câu hỏi: {question}
+Câu hỏi: {question}{gt_block}
 
 Answer A:
 {answer_a}
@@ -49,7 +51,10 @@ Answer A:
 Answer B:
 {answer_b}
 
-Đánh giá dựa trên 3 tiêu chí: độ chính xác (accuracy), độ đầy đủ (completeness), và tính súc tích (conciseness).
+Đánh giá dựa trên 3 tiêu chí (accuracy quan trọng nhất nếu có ground truth):
+1. Độ chính xác (accuracy 40%): câu trả lời có đúng với ground truth/chính sách không?
+2. Độ đầy đủ (completeness 35%): có trả lời đủ câu hỏi không?
+3. Tính súc tích (conciseness 25%): có thừa / thiếu thông tin không?
 Trả lời JSON (chỉ JSON, không văn bản nào khác ngoài JSON):
 {{"winner": "A" hoặc "B" hoặc "tie", "reasoning": "giải thích ngắn gọn lý do chọn", "scores": {{"A": 0.0-1.0, "B": 0.0-1.0}}}}
 '''
@@ -59,9 +64,9 @@ Trả lời JSON (chỉ JSON, không văn bản nào khác ngoài JSON):
         resp = client.chat.completions.create(
             model=JUDGE_MODEL,
             messages=[
-                {"role": "system", "content": "Bạn là expert đánh giá RAG. Chỉ trả lời JSON đúng định dạng yêu cầu."},
+                {"role": "system", "content": "Bạn là expert đánh giá RAG. Ưu tiên accuracy (khớp ground truth) trước khi đánh giá fluency. Chỉ trả lời JSON đúng định dạng yêu cầu."},
                 {"role": "user", "content": PROMPT_TEMPLATE.format(
-                    question=question, answer_a=answer_a, answer_b=answer_b)},
+                    question=question, gt_block=gt_block, answer_a=answer_a, answer_b=answer_b)},
             ],
             response_format={"type": "json_object"},
             temperature=0.0
@@ -74,7 +79,8 @@ Trả lời JSON (chỉ JSON, không văn bản nào khác ngoài JSON):
 
 # ─── Task 6: Swap-and-Average ─────────────────────────────────────────────────
 
-def swap_and_average(question: str, answer_a: str, answer_b: str) -> JudgeResult:
+def swap_and_average(question: str, answer_a: str, answer_b: str,
+                     ground_truth: str = "") -> JudgeResult:
     """Task 6: Chạy pairwise 2 lần (hoán đổi thứ tự), lấy kết quả nhất quán.
 
     Lý do: LLM thường có position bias (ưu tiên answer xuất hiện trước).
@@ -254,22 +260,27 @@ if __name__ == "__main__":
     print(f"\nHuman labels loaded: {len(human_labels)} questions")
 
     # Run judge on the same 10 questions to get judge_labels
+    # Build lookup: question_id -> ground_truth from answers_50q.json
+    from config import ANSWERS_PATH
+    gt_lookup = {}
+    if os.path.exists(ANSWERS_PATH):
+        with open(ANSWERS_PATH, encoding="utf-8") as f:
+            all_answers = json.load(f)
+        gt_lookup = {a["id"]: a.get("ground_truth", "") for a in all_answers}
+
     judge_results = []
     judge_labels = []
     for item in human_data:
         print(f"Evaluating Q{item['question_id']}: {item['question'][:50]}...")
-        # Generate naive answer as baseline
         ans_a = generate_zero_shot_answer(item["question"])
         ans_b = item["model_answer"]
-        
-        res = swap_and_average(item["question"], ans_a, ans_b)
+        gt = gt_lookup.get(item["question_id"], "")
+
+        res = swap_and_average(item["question"], ans_a, ans_b, ground_truth=gt)
         judge_results.append(res)
-        
-        # Mapping to binary classification: 
-        # B (RAG model) is good (1) if it wins against A (zero-shot) or has high score.
-        # Otherwise B is bad (0).
+
         avg_score_b = (res.scores_pass1.get("B", 0.0) + res.scores_pass2.get("B", 0.0)) / 2.0
-        label = 1 if (res.final_winner == "B" or avg_score_b >= 0.7) else 0
+        label = 1 if (res.final_winner == "B" or avg_score_b >= 0.65) else 0
         judge_labels.append(label)
 
     kappa = cohen_kappa(judge_labels, human_labels)
