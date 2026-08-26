@@ -212,8 +212,25 @@ async def check_output_rail(question: str, answer: str, rails=None) -> dict:
     else:
         response_text = str(response)
 
-    refuse_keywords = ["xin lỗi", "không thể cung cấp", "i cannot", "liên hệ phòng nhân sự", "không chính xác", "xác nhận với phòng nhân sự"]
-    flagged = any(kw in response_text.lower() for kw in refuse_keywords) or (response_text.strip() != answer.strip() and "xin lỗi" in response_text.lower())
+    # Only flag if NeMo's response is a clear REFUSAL (explicit apology or denial),
+    # NOT just because the answer contains normal HR phrases like "contact HR dept".
+    # Strategy: compare NeMo's response to the original answer.
+    #   - If they are substantially the same → NeMo approved it → SAFE
+    #   - If NeMo rewrote it with a refusal phrase → FLAGGED
+    strong_refuse_kws = [
+        "xin lỗi, tôi không thể",
+        "tôi không thể cung cấp",
+        "không thể cung cấp thông tin này",
+        "i cannot provide",
+        "i'm sorry, i cannot",
+        "i am unable to",
+        "không được phép tiết lộ",
+        "thông tin bảo mật, không thể",
+    ]
+    # NeMo changed the answer AND the new answer starts with a refusal phrase
+    answer_changed = response_text.strip() != answer.strip()
+    is_refusal = any(kw in response_text.lower() for kw in strong_refuse_kws)
+    flagged = answer_changed and is_refusal
     return {
         "safe":           not flagged,
         "flagged_reason": "nemo_output_rail" if flagged else None,

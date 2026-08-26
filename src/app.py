@@ -241,6 +241,7 @@ with tab_test:
                          f"Ly do: <code>{out_r['flagged_reason']}</code><br>Cau tra loi da duoc bien tap.",
                          timings["nemo_out"])
                     final_ans = out_r["final_answer"]
+                    blocked = True  # propagate so Verdict shows BLOCKED
                 else:
                     card("🟢","Output Rail — SAFE","s-ok",
                          "Cau tra loi vuot qua kiem tra noi dung.", timings["nemo_out"])
