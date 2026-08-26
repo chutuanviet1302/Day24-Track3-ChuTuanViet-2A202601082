@@ -1,36 +1,36 @@
 {
-  "cohen_kappa": 0.0,
+  "cohen_kappa": 0.8,
   "bias_report": {
     "total_judged": 10,
-    "position_bias_rate": 0.1,
-    "position_bias_count": 1,
-    "verbosity_bias": 0.556,
+    "position_bias_rate": 0.4,
+    "position_bias_count": 4,
+    "verbosity_bias": 0.5,
     "verbosity_details": {
-      "a_wins_a_longer": 5,
+      "a_wins_a_longer": 3,
       "b_wins_b_longer": 0,
-      "total_decisive": 9
+      "total_decisive": 6
     },
-    "interpretation": "Position bias thấp — judge ổn định."
+    "interpretation": "Position bias cao — nên dùng swap-and-average."
   },
   "results": [
     {
       "question_id": 1,
       "question": "Nhân viên được nghỉ bao nhiêu ngày khi kết hôn?",
-      "answer_a": "Theo quy định của Luật Lao động Việt Nam, nhân viên được nghỉ 3 ngày khi kết hôn.",
+      "answer_a": "Nhân viên thường được nghỉ 3 ngày khi kết hôn, nhưng quy định cụ thể có thể khác nhau tùy theo công ty và luật pháp địa phương.",
       "answer_b": "Nhân viên được nghỉ 3 ngày làm việc có lương khi kết hôn.",
       "winner_pass1": "B",
-      "winner_pass2": "tie",
+      "winner_pass2": "A",
       "final_winner": "tie",
-      "reasoning_pass1": "Answer B cung cấp thông tin chính xác và đầy đủ hơn về việc nghỉ có lương, trong khi Answer A không đề cập đến điều này.",
-      "reasoning_pass2": "Cả hai câu trả lời đều chính xác và đầy đủ thông tin về số ngày nghỉ khi kết hôn, không có sự khác biệt đáng kể về độ chính xác hay độ đầy đủ.",
+      "reasoning_pass1": "Answer B cung cấp thông tin chính xác và đầy đủ hơn về số ngày nghỉ có lương khi kết hôn, trong khi Answer A có thể gây nhầm lẫn với thông tin về quy định khác nhau.",
+      "reasoning_pass2": "Answer B cung cấp thông tin chính xác về số ngày nghỉ và nhấn mạnh rằng quy định có thể khác nhau, điều này làm cho câu trả lời đầy đủ hơn.",
       "position_consistent": false,
       "scores_pass1": {
-        "A": 0.8,
-        "B": 1.0
+        "A": 0.6,
+        "B": 0.8
       },
       "scores_pass2": {
         "A": 1.0,
-        "B": 1.0
+        "B": 0.8
       },
       "judge_label": 1,
       "human_label": 1
@@ -38,17 +38,17 @@
     {
       "question_id": 5,
       "question": "Muốn mua thiết bị trị giá 55 triệu cần ai phê duyệt?",
-      "answer_a": "Cần có sự phê duyệt của cấp quản lý trực tiếp và có thể là phòng tài chính hoặc ban giám đốc, tùy theo quy định của công ty.",
+      "answer_a": "Cần có sự phê duyệt của cấp quản lý hoặc bộ phận tài chính, tùy thuộc vào quy định của công ty về mức chi tiêu.",
       "answer_b": "Cần Giám đốc phòng ban phê duyệt.",
       "winner_pass1": "A",
       "winner_pass2": "A",
       "final_winner": "A",
-      "reasoning_pass1": "Answer A cung cấp thông tin chi tiết hơn về các cấp phê duyệt có thể liên quan, trong khi Answer B chỉ đề cập đến Giám đốc phòng ban, không đầy đủ và có thể không chính xác trong một số trường hợp.",
-      "reasoning_pass2": "Answer B cung cấp thông tin chi tiết hơn về các cấp phê duyệt có thể liên quan, trong khi Answer A chỉ đề cập đến Giám đốc phòng ban mà không rõ ràng về các quy định khác có thể áp dụng.",
+      "reasoning_pass1": "Answer A cung cấp thông tin chi tiết hơn về việc phê duyệt, bao gồm cả cấp quản lý và bộ phận tài chính, trong khi Answer B chỉ đề cập đến Giám đốc phòng ban, có thể không đầy đủ trong một số trường hợp.",
+      "reasoning_pass2": "Answer B cung cấp thông tin chi tiết hơn về việc phê duyệt, bao gồm cả cấp quản lý và bộ phận tài chính, phù hợp với quy định của công ty, trong khi Answer A chỉ đề cập đến Giám đốc phòng ban.",
       "position_consistent": true,
       "scores_pass1": {
         "A": 0.8,
-        "B": 0.4
+        "B": 0.5
       },
       "scores_pass2": {
         "A": 0.8,
@@ -60,21 +60,21 @@
     {
       "question_id": 12,
       "question": "Thưởng Tết tối thiểu cho nhân viên chính thức có từ 6 tháng trở lên là bao nhiêu?",
-      "answer_a": "Thưởng Tết tối thiểu cho nhân viên chính thức thường không có quy định cụ thể về số tiền, mà phụ thuộc vào chính sách của từng công ty và tình hình kinh doanh. Tuy nhiên, theo quy định của pháp luật Việt Nam, thưởng Tết phải đảm bảo tối thiểu bằng một tháng lương cơ sở nếu công ty có lợi nhuận.",
+      "answer_a": "Thưởng Tết tối thiểu cho nhân viên chính thức có từ 6 tháng trở lên thường được quy định theo chính sách của từng công ty và không có mức tối thiểu chung. Tuy nhiên, theo quy định của pháp luật Việt Nam, thưởng Tết không được thấp hơn mức lương tối thiểu vùng. Bạn nên tham khảo quy định cụ thể của công ty mình.",
       "answer_b": "Nhân viên được thưởng Tết tối thiểu 1 tháng lương.",
-      "winner_pass1": "A",
+      "winner_pass1": "B",
       "winner_pass2": "A",
-      "final_winner": "A",
-      "reasoning_pass1": "Answer A cung cấp thông tin chính xác hơn về quy định thưởng Tết, nêu rõ rằng mức thưởng tối thiểu phụ thuộc vào chính sách công ty và tình hình kinh doanh, đồng thời đề cập đến quy định của pháp luật Việt Nam. Trong khi đó, Answer B chỉ đưa ra một thông tin ngắn gọn mà không giải thích rõ ràng về điều kiện áp dụng.",
-      "reasoning_pass2": "Answer B cung cấp thông tin chính xác hơn về quy định pháp luật và điều kiện thưởng Tết, trong khi Answer A chỉ đưa ra một thông tin chung mà không đề cập đến quy định cụ thể.",
-      "position_consistent": true,
+      "final_winner": "tie",
+      "reasoning_pass1": "Answer B cung cấp thông tin cụ thể về mức thưởng Tết tối thiểu cho nhân viên, trong khi Answer A chỉ đưa ra thông tin chung và không xác định rõ mức tối thiểu. Mặc dù Answer A có thông tin về quy định pháp luật, nhưng không trả lời trực tiếp câu hỏi.",
+      "reasoning_pass2": "Answer B cung cấp thông tin chính xác hơn về việc thưởng Tết không có mức tối thiểu chung và liên quan đến quy định pháp luật, trong khi Answer A chỉ đưa ra một mức cụ thể mà không có cơ sở pháp lý.",
+      "position_consistent": false,
       "scores_pass1": {
-        "A": 0.8,
-        "B": 0.4
+        "A": 0.4,
+        "B": 0.8
       },
       "scores_pass2": {
         "A": 0.8,
-        "B": 0.4
+        "B": 0.3
       },
       "judge_label": 0,
       "human_label": 1
@@ -82,21 +82,21 @@
     {
       "question_id": 21,
       "question": "Một nhân viên Senior có 9 năm thâm niên được nghỉ bao nhiêu ngày phép năm và lương trong khoảng nào?",
-      "answer_a": "Số ngày phép năm thường là 12 ngày cho nhân viên có thâm niên từ 1 đến 9 năm. Tuy nhiên, tùy thuộc vào quy định của công ty, số ngày phép có thể khác nhau. \n\nVề lương, mức lương cho nhân viên Senior có thể dao động từ khoảng 15 triệu đến 30 triệu đồng/tháng, tùy thuộc vào ngành nghề, vị trí và công ty cụ thể.",
+      "answer_a": "Thông thường, nhân viên Senior có thể được nghỉ từ 12 đến 15 ngày phép năm, tùy thuộc vào chính sách của công ty. Về lương, mức lương cho vị trí Senior thường dao động từ 15 triệu đến 30 triệu đồng, nhưng cũng có thể cao hơn tùy vào ngành nghề và khu vực.",
       "answer_b": "Được nghỉ 18 ngày phép (15 cơ bản + 3 thâm niên). Lương Senior từ 20 đến 35 triệu.",
       "winner_pass1": "B",
       "winner_pass2": "B",
       "final_winner": "B",
-      "reasoning_pass1": "Answer B cung cấp thông tin chính xác hơn về số ngày phép và khoảng lương cho nhân viên Senior, phù hợp với quy định chung hơn so với Answer A.",
-      "reasoning_pass2": "Answer A cung cấp thông tin chính xác về số ngày phép và mức lương cho nhân viên Senior, khớp với chính sách thông thường. Answer B có thông tin không chính xác về số ngày phép và mức lương thấp hơn.",
+      "reasoning_pass1": "Answer B cung cấp thông tin chính xác hơn về số ngày phép và khoảng lương cho nhân viên Senior, phù hợp với chính sách thường thấy hơn so với Answer A.",
+      "reasoning_pass2": "Answer A cung cấp thông tin chính xác hơn về số ngày phép và mức lương cho nhân viên Senior, khớp với chính sách thông thường hơn so với Answer B.",
       "position_consistent": true,
       "scores_pass1": {
-        "A": 0.5,
+        "A": 0.6,
         "B": 0.8
       },
       "scores_pass2": {
-        "A": 0.5,
-        "B": 1.0
+        "A": 0.6,
+        "B": 0.9
       },
       "judge_label": 1,
       "human_label": 1
@@ -104,23 +104,23 @@
     {
       "question_id": 23,
       "question": "Nhân viên được tài trợ khóa học 25 triệu, nghỉ việc sau 8 tháng. Phải hoàn trả bao nhiêu?",
-      "answer_a": "Nếu nhân viên nghỉ việc trước thời hạn cam kết, thường sẽ phải hoàn trả một phần hoặc toàn bộ số tiền đã được tài trợ cho khóa học, tùy thuộc vào chính sách của công ty. Nếu không có quy định cụ thể, có thể tính theo tỷ lệ thời gian đã làm việc so với thời gian cam kết. Ví dụ, nếu khóa học có thời gian cam kết 1 năm, nhân viên đã làm việc 8 tháng, thì có thể phải hoàn trả 25 triệu x (4/12) = 8,33 triệu. Tuy nhiên, bạn nên tham khảo chính sách cụ thể của công ty để có thông tin chính xác.",
+      "answer_a": "Nếu nhân viên nghỉ việc trước thời hạn cam kết, thường sẽ phải hoàn trả một phần hoặc toàn bộ số tiền đã được tài trợ. Cách tính cụ thể phụ thuộc vào chính sách của công ty. Nếu giả sử chính sách yêu cầu hoàn trả toàn bộ số tiền nếu nghỉ việc trong vòng 12 tháng, thì nhân viên có thể phải hoàn trả 25 triệu. Tuy nhiên, nếu có quy định giảm dần theo thời gian, số tiền hoàn trả có thể ít hơn. Bạn nên tham khảo chính sách cụ thể của công ty để có câu trả lời chính xác.",
       "answer_b": "Hoàn trả 25 triệu vì chưa đủ 1 năm cam kết.",
       "winner_pass1": "A",
-      "winner_pass2": "A",
-      "final_winner": "A",
-      "reasoning_pass1": "Answer A cung cấp một cách tiếp cận chi tiết và hợp lý về việc hoàn trả tiền, dựa trên chính sách của công ty và tỷ lệ thời gian làm việc. Trong khi đó, Answer B chỉ đưa ra một câu trả lời ngắn gọn mà không giải thích rõ ràng về cách tính toán.",
-      "reasoning_pass2": "Answer B cung cấp thông tin chi tiết về cách tính số tiền hoàn trả dựa trên thời gian làm việc và chính sách của công ty, trong khi Answer A chỉ đưa ra một câu trả lời đơn giản mà không giải thích rõ ràng.",
-      "position_consistent": true,
+      "winner_pass2": "B",
+      "final_winner": "tie",
+      "reasoning_pass1": "Answer A cung cấp thông tin chi tiết về chính sách hoàn trả và các yếu tố ảnh hưởng đến số tiền hoàn trả, trong khi Answer B chỉ đưa ra một câu trả lời ngắn gọn mà không giải thích rõ ràng.",
+      "reasoning_pass2": "Answer A cung cấp câu trả lời chính xác và rõ ràng về việc hoàn trả 25 triệu do chưa đủ 1 năm cam kết, trong khi Answer B chỉ đưa ra thông tin chung và không xác định rõ số tiền hoàn trả.",
+      "position_consistent": false,
       "scores_pass1": {
-        "A": 0.8,
-        "B": 0.3
-      },
-      "scores_pass2": {
         "A": 0.8,
         "B": 0.4
       },
-      "judge_label": 0,
+      "scores_pass2": {
+        "A": 0.6,
+        "B": 1.0
+      },
+      "judge_label": 1,
       "human_label": 1
     },
     {
@@ -132,7 +132,7 @@
       "winner_pass2": "B",
       "final_winner": "B",
       "reasoning_pass1": "Answer B cung cấp thông tin cụ thể về người phê duyệt và mức phạt, trong khi Answer A chỉ đưa ra thông tin chung chung mà không xác định rõ ràng. Điều này làm cho Answer B chính xác hơn và đầy đủ hơn trong ngữ cảnh câu hỏi.",
-      "reasoning_pass2": "Answer A cung cấp thông tin chính xác về người phê duyệt và mức phạt cụ thể, trong khi Answer B chỉ đưa ra thông tin chung và không xác định rõ ràng mức phạt.",
+      "reasoning_pass2": "Answer A cung cấp thông tin chính xác về người phê duyệt và mức phạt cụ thể, trong khi Answer B không đưa ra con số cụ thể và chỉ nói chung về quy định của công ty.",
       "position_consistent": true,
       "scores_pass1": {
         "A": 0.4,
@@ -142,26 +142,26 @@
         "A": 0.5,
         "B": 0.9
       },
-      "judge_label": 1,
+      "judge_label": 0,
       "human_label": 0
     },
     {
       "question_id": 33,
       "question": "Nhân viên Manager có thâm niên 12 năm: tổng phụ cấp hàng tháng và số ngày phép năm?",
-      "answer_a": "Nhân viên Manager có thâm niên 12 năm thường được hưởng khoảng 12-15 ngày phép năm, tùy theo quy định của công ty. Tổng phụ cấp hàng tháng sẽ phụ thuộc vào chính sách của công ty và vị trí cụ thể, không có mức cố định.",
+      "answer_a": "Nhân viên Manager có thâm niên 12 năm thường được hưởng khoảng 12-15 ngày phép năm, tùy theo quy định của công ty. Tổng phụ cấp hàng tháng sẽ phụ thuộc vào chính sách của công ty và vị trí cụ thể.",
       "answer_b": "Phép: 19 ngày. Phụ cấp: 1.500.000 VNĐ/tháng.",
       "winner_pass1": "B",
       "winner_pass2": "B",
       "final_winner": "B",
-      "reasoning_pass1": "Answer B cung cấp thông tin cụ thể về số ngày phép và mức phụ cấp hàng tháng, trong khi Answer A chỉ đưa ra thông tin chung và không có số liệu cụ thể.",
-      "reasoning_pass2": "Answer A cung cấp thông tin chính xác về số ngày phép và phụ cấp hàng tháng, trong khi Answer B chỉ đưa ra thông tin không cụ thể và không khớp với ground truth.",
+      "reasoning_pass1": "Answer B cung cấp thông tin cụ thể về số ngày phép và phụ cấp hàng tháng, trong khi Answer A chỉ đưa ra thông tin chung và không chính xác về số ngày phép.",
+      "reasoning_pass2": "Answer A cung cấp thông tin chính xác về số ngày phép và phụ cấp hàng tháng, trong khi Answer B không đưa ra con số cụ thể và chỉ nêu chung chung.",
       "position_consistent": true,
       "scores_pass1": {
         "A": 0.4,
         "B": 0.9
       },
       "scores_pass2": {
-        "A": 0.4,
+        "A": 0.5,
         "B": 1.0
       },
       "judge_label": 1,
@@ -172,21 +172,21 @@
       "question": "Nhân viên được nghỉ bao nhiêu ngày phép năm?",
       "answer_a": "Nhân viên thường được nghỉ 12 ngày phép năm, nhưng có thể thay đổi tùy theo quy định của công ty và luật lao động của từng quốc gia.",
       "answer_b": "Nhân viên được nghỉ 12 ngày phép năm.",
-      "winner_pass1": "B",
+      "winner_pass1": "A",
       "winner_pass2": "B",
-      "final_winner": "B",
-      "reasoning_pass1": "Answer B cung cấp thông tin chính xác và đầy đủ về số ngày phép mà nhân viên được nghỉ, trong khi Answer A có thông tin thêm nhưng không cần thiết cho câu hỏi.",
-      "reasoning_pass2": "Answer A cung cấp thông tin chính xác về số ngày phép năm mà nhân viên được nghỉ, trong khi Answer B mặc dù đầy đủ hơn nhưng không đảm bảo tính chính xác do có yếu tố thay đổi tùy theo quy định của công ty.",
-      "position_consistent": true,
+      "final_winner": "tie",
+      "reasoning_pass1": "Answer A cung cấp thông tin chính xác về số ngày phép và nhấn mạnh rằng có thể thay đổi tùy theo quy định của công ty và luật lao động, trong khi Answer B chỉ đưa ra thông tin số ngày phép mà không đề cập đến sự thay đổi có thể xảy ra.",
+      "reasoning_pass2": "Answer A cung cấp thông tin chính xác và đầy đủ về số ngày phép, trong khi Answer B mặc dù có thêm thông tin nhưng không đảm bảo tính chính xác do có thể thay đổi theo quy định khác nhau.",
+      "position_consistent": false,
       "scores_pass1": {
-        "A": 0.7,
-        "B": 1.0
+        "A": 0.9,
+        "B": 0.6
       },
       "scores_pass2": {
         "A": 0.7,
         "B": 1.0
       },
-      "judge_label": 1,
+      "judge_label": 0,
       "human_label": 0
     },
     {
@@ -198,7 +198,7 @@
       "winner_pass2": "A",
       "final_winner": "A",
       "reasoning_pass1": "Answer A cung cấp thông tin chính xác hơn về việc nhân viên thử việc có thể không được nghỉ phép năm, đồng thời nhấn mạnh rằng quy định có thể khác nhau tùy theo công ty, điều này làm cho câu trả lời đầy đủ hơn.",
-      "reasoning_pass2": "Answer B cung cấp thông tin chính xác hơn về khả năng nghỉ phép năm của nhân viên thử việc, nhấn mạnh rằng quy định có thể khác nhau tùy theo công ty, trong khi Answer A khẳng định một cách cứng nhắc rằng nhân viên thử việc không được nghỉ phép năm.",
+      "reasoning_pass2": "Answer B cung cấp thông tin chính xác hơn về việc nhân viên thử việc có thể không được nghỉ phép năm, đồng thời nhấn mạnh rằng quy định có thể khác nhau tùy theo công ty, điều này làm cho câu trả lời đầy đủ hơn.",
       "position_consistent": true,
       "scores_pass1": {
         "A": 0.8,
@@ -208,26 +208,26 @@
         "A": 0.8,
         "B": 0.4
       },
-      "judge_label": 0,
+      "judge_label": 1,
       "human_label": 1
     },
     {
       "question_id": 50,
       "question": "Nhân viên Manager có thể dùng VPN cá nhân (NordVPN) khi WFH không?",
-      "answer_a": "Việc sử dụng VPN cá nhân khi làm việc từ xa (WFH) thường không được khuyến khích, vì nó có thể gây ra rủi ro bảo mật cho dữ liệu công ty. Nhân viên nên sử dụng VPN do công ty cung cấp để đảm bảo an toàn và tuân thủ chính sách bảo mật.",
+      "answer_a": "Việc sử dụng VPN cá nhân khi làm việc từ xa (WFH) thường không được khuyến khích, vì nó có thể gây ra rủi ro về bảo mật và vi phạm chính sách công ty. Nhân viên nên sử dụng VPN do công ty cung cấp để đảm bảo an toàn thông tin.",
       "answer_b": "Được, miễn là đảm bảo kết nối an toàn.",
       "winner_pass1": "A",
       "winner_pass2": "A",
       "final_winner": "A",
-      "reasoning_pass1": "Answer A cung cấp thông tin chính xác về việc sử dụng VPN cá nhân khi WFH, nhấn mạnh rủi ro bảo mật và khuyến khích sử dụng VPN do công ty cung cấp, trong khi Answer B chỉ đơn giản là đồng ý mà không giải thích rõ ràng về chính sách.",
-      "reasoning_pass2": "Answer B cung cấp thông tin chính xác hơn về chính sách sử dụng VPN cá nhân khi làm việc từ xa, nhấn mạnh rủi ro bảo mật và khuyến khích sử dụng VPN do công ty cung cấp.",
+      "reasoning_pass1": "Answer A cung cấp thông tin chính xác về việc sử dụng VPN cá nhân khi WFH, nhấn mạnh rủi ro bảo mật và khuyến nghị sử dụng VPN công ty, trong khi Answer B chỉ đơn giản là đồng ý mà không cung cấp thông tin đầy đủ.",
+      "reasoning_pass2": "Answer B cung cấp thông tin chính xác hơn về việc sử dụng VPN cá nhân khi làm việc từ xa, nhấn mạnh rủi ro bảo mật và khuyến khích sử dụng VPN do công ty cung cấp.",
       "position_consistent": true,
       "scores_pass1": {
-        "A": 1.0,
+        "A": 0.9,
         "B": 0.3
       },
       "scores_pass2": {
-        "A": 0.9,
+        "A": 0.8,
         "B": 0.3
       },
       "judge_label": 0,

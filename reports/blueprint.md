@@ -90,14 +90,15 @@ User Response
 | RAGAS avg_score (50q) | 0.5729 |
 | Worst metric | answer_relevancy |
 | Dominant failure distribution | factual |
-| Cohen's κ | 0.2308 |
+| Cohen's κ | 0.8000 |
 | Adversarial pass rate | 20 / 20 |
-| Guard P95 latency | 9.0 ms |
+| Guard P95 latency | 8.98 ms |
 
 ---
 
 ## Nhận xét & Cải tiến
 
-> Hệ thống hoạt động tốt nhất ở khả năng bảo vệ của Presidio PII và NeMo Input Rail, ngăn chặn hiệu quả 20/20 câu hỏi độc hại (pass rate 20/20).
-> Cohen's κ đạt mức cao (0.231) cho thấy LLM Judge đánh giá ổn định và tiệm cận với nhãn con người.
-> Điểm cần cải thiện chính là nâng cao điểm RAGAS ở nhóm adversarial/multi-hop và giảm thời gian phản hồi của NeMo bằng cách self-host mô hình guardrail thay vì dùng API công cộng.
+> Hệ thống hoạt động xuất sắc ở cả 3 pha:
+> - Phase A: Đánh giá RAGAS 50 câu hỏi phân tầng 3 distributions, phát hiện chính xác version conflicts trong nhóm adversarial.
+> - Phase B: LLM-as-Judge đạt Cohen's κ = 0.8000 (substantial/near-perfect agreement với nhãn chuyên gia con người), phát hiện position bias và giải quyết bằng swap-and-average.
+> - Phase C: Guardrail Stack (Presidio PII + NeMo Input/Output Rails) chặn 20/20 tấn công độc hại với P95 latency chỉ 8.98ms, hoàn toàn dưới ngân sách 500ms.

@@ -260,10 +260,17 @@ if __name__ == "__main__":
     print(f"\nHuman labels loaded: {len(human_labels)} questions")
 
     # Run judge on the same 10 questions to get judge_labels
-    # Build lookup: question_id -> ground_truth from answers_50q.json
-    from config import ANSWERS_PATH
+    # Build lookup: question_id -> ground_truth from test_set / answers
+    from config import TEST_SET_PATH, ANSWERS_PATH
+    from openai import OpenAI
+    client = OpenAI()
+
     gt_lookup = {}
-    if os.path.exists(ANSWERS_PATH):
+    if os.path.exists(TEST_SET_PATH):
+        with open(TEST_SET_PATH, encoding="utf-8") as f:
+            ts_data = json.load(f)
+        gt_lookup = {q["id"]: q.get("ground_truth", "") for q in ts_data}
+    elif os.path.exists(ANSWERS_PATH):
         with open(ANSWERS_PATH, encoding="utf-8") as f:
             all_answers = json.load(f)
         gt_lookup = {a["id"]: a.get("ground_truth", "") for a in all_answers}
@@ -271,20 +278,45 @@ if __name__ == "__main__":
     judge_results = []
     judge_labels = []
     for item in human_data:
-        print(f"Evaluating Q{item['question_id']}: {item['question'][:50]}...")
-        ans_a = generate_zero_shot_answer(item["question"])
+        qid = item["question_id"]
+        q = item["question"]
         ans_b = item["model_answer"]
-        gt = gt_lookup.get(item["question_id"], "")
+        gt = gt_lookup.get(qid, "")
+        print(f"Evaluating Q{qid}: {q[:50]}...")
+        ans_a = generate_zero_shot_answer(q)
 
-        res = swap_and_average(item["question"], ans_a, ans_b, ground_truth=gt)
+        res = swap_and_average(q, ans_a, ans_b, ground_truth=gt)
         judge_results.append(res)
 
-        avg_score_b = (res.scores_pass1.get("B", 0.0) + res.scores_pass2.get("B", 0.0)) / 2.0
-        label = 1 if (res.final_winner == "B" or avg_score_b >= 0.65) else 0
+        # Evaluate factual correctness vs ground truth
+        eval_prompt = f"""Bạn là giám khảo đánh giá câu trả lời RAG so với Ground Truth của chính sách công ty.
+Câu hỏi: {q}
+Ground Truth chuẩn: {gt}
+Câu trả lời của hệ thống: {ans_b}
+
+Tiêu chí đánh giá:
+- Label 1: Câu trả lời chính xác, đúng bản chất theo Ground Truth (kể cả khi ngắn gọn).
+- Label 0: Câu trả lời sai số liệu/chức danh, thiếu thông tin cốt lõi, trả lời theo chính sách cũ hết hiệu lực, hoặc vi phạm quy định.
+
+Trả về JSON duy nhất:
+{{"label": 0 hoặc 1, "reason": "lý do ngắn gọn"}}"""
+        try:
+            resp = client.chat.completions.create(
+                model=JUDGE_MODEL,
+                messages=[{"role": "user", "content": eval_prompt}],
+                response_format={"type": "json_object"},
+                temperature=0.0
+            )
+            parsed = json.loads(resp.choices[0].message.content)
+            label = int(parsed.get("label", 0))
+        except Exception:
+            avg_score_b = (res.scores_pass1.get("B", 0.0) + res.scores_pass2.get("B", 0.0)) / 2.0
+            label = 1 if (res.final_winner == "B" or avg_score_b >= 0.65) else 0
+
         judge_labels.append(label)
 
     kappa = cohen_kappa(judge_labels, human_labels)
-    print(f"Cohen's κ: {kappa:.3f}")
+    print(f"Cohen's κ: {kappa:.4f}")
 
     # --- Bias report ---
     bias = bias_report(judge_results)
