@@ -60,7 +60,7 @@ st.markdown("""
         font-weight: bold;
     }
 </style>
-""", unsafe_style_html=True)
+""", unsafe_allow_html=True)
 
 # Cache resource loaders to avoid rebuild on every interaction
 @st.cache_resource
@@ -77,8 +77,8 @@ def load_guardrails():
     return analyzer, anonymizer, rails
 
 # Main UI Layout
-st.markdown("<div class='main-title'>🛡️ RAG Guard Stack & Evaluation Testbed</div>", unsafe_style_html=True)
-st.markdown("<div class='sub-title'>Hệ thống đánh giá sản xuất và lớp bảo vệ (Guardrails) toàn diện cho RAG Pipeline tiếng Việt</div>", unsafe_style_html=True)
+st.markdown("<div class='main-title'>🛡️ RAG Guard Stack & Evaluation Testbed</div>", unsafe_allow_html=True)
+st.markdown("<div class='sub-title'>Hệ thống đánh giá sản xuất và lớp bảo vệ (Guardrails) toàn diện cho RAG Pipeline tiếng Việt</div>", unsafe_allow_html=True)
 
 # Load models and pipelines
 with st.spinner("Đang khởi tạo RAG Pipeline và Guard Stack... (Lần đầu có thể mất 30s)"):
@@ -216,10 +216,10 @@ with tab_sandbox:
             v_col1, v_col2 = st.columns(2)
             with v_col1:
                 if is_blocked:
-                    st.markdown(f"**Trạng thái:** <span class='status-blocked'>🔴 BLOCKED</span>", unsafe_style_html=True)
+                    st.markdown(f"**Trạng thái:** <span class='status-blocked'>🔴 BLOCKED</span>", unsafe_allow_html=True)
                     st.markdown(f"**Chặn bởi:** `{blocked_reason}`")
                 else:
-                    st.markdown(f"**Trạng thái:** <span class='status-allowed'>🟢 ALLOWED</span>", unsafe_style_html=True)
+                    st.markdown(f"**Trạng thái:** <span class='status-allowed'>🟢 ALLOWED</span>", unsafe_allow_html=True)
                 
                 budget_status = "✅ Đạt chuẩn (< 500ms)" if t_total < 500 else "❌ Quá hạn (> 500ms)"
                 st.markdown(f"**Tổng thời gian xử lý:** `{t_total:.1f} ms` ({budget_status})")
@@ -258,7 +258,7 @@ with tab_reports:
     guard_path = "reports/guard_results.json"
     
     with rep_col1:
-        st.markdown("<div class='metric-card'>", unsafe_style_html=True)
+        st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
         st.markdown("### 📊 Phase A: RAGAS Scores")
         if os.path.exists(ragas_path):
             with open(ragas_path, encoding="utf-8") as f:
@@ -273,10 +273,10 @@ with tab_reports:
             st.success("Chi tiết có tại `analysis/failure_clusters.md`!")
         else:
             st.warning("Không tìm thấy tệp `reports/ragas_50q.json`")
-        st.markdown("</div>", unsafe_style_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
         
     with rep_col2:
-        st.markdown("<div class='metric-card'>", unsafe_style_html=True)
+        st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
         st.markdown("### ⚖️ Phase B: LLM Judge Bias")
         if os.path.exists(judge_path):
             with open(judge_path, encoding="utf-8") as f:
@@ -289,10 +289,10 @@ with tab_reports:
             st.success("Chi tiết có tại `analysis/bias_report.md`!")
         else:
             st.warning("Không tìm thấy tệp `reports/judge_results.json`")
-        st.markdown("</div>", unsafe_style_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
         
     with rep_col3:
-        st.markdown("<div class='metric-card'>", unsafe_style_html=True)
+        st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
         st.markdown("### 🛡️ Phase C: Guard Stack Performance")
         if os.path.exists(guard_path):
             with open(guard_path, encoding="utf-8") as f:
@@ -309,4 +309,4 @@ with tab_reports:
             st.success("Chi tiết có tại `reports/blueprint.md`!")
         else:
             st.warning("Không tìm thấy tệp `reports/guard_results.json`")
-        st.markdown("</div>", unsafe_style_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
