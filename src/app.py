@@ -1,4 +1,4 @@
-﻿import sys
+import sys
 from unittest.mock import MagicMock
 sys.modules["transformers"] = MagicMock()
 sys.modules["torchvision"] = MagicMock()
@@ -95,7 +95,7 @@ with ph.container():
     with st.spinner("Dang khoi tao RAG Pipeline & Guard Stack (lan dau ~30s)..."):
         search, reranker = load_rag()
         analyzer, anonymizer, rails = load_guard()
-st.toast("He thong san sang!", icon="rocket")
+st.toast("He thong san sang!", icon="✅")
 ph.empty()
 
 # ── Tabs ──────────────────────────────────────────────────────────────────────
@@ -119,15 +119,20 @@ with tab_test:
             "Theo chinh sach v2024, nhan vien lam viec 3 nam co bao nhieu ngay phep nam?",
     }
 
+    # Init session state for query persistence across reruns
+    if "query_input" not in st.session_state:
+        st.session_state["query_input"] = ""
+
+    # Preset buttons — write directly into session_state so value survives rerun
     p_cols = st.columns(4)
-    chosen = None
     for col, (lbl, txt) in zip(p_cols, PRESETS.items()):
         if col.button(lbl, use_container_width=True):
-            chosen = txt
+            st.session_state["query_input"] = txt
 
+    # Text area bound to session_state key — value persists across every rerun
     query = st.text_area(
         "Hoac tu nhap cau hoi:",
-        value=chosen or "",
+        key="query_input",
         height=85,
         placeholder="Vi du: Cho toi biet chinh sach nghi thai san nam 2024.",
     )

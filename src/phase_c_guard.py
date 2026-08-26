@@ -87,10 +87,19 @@ def setup_nemo_rails():
         config.yml  — model + rails config
         rails.co    — Colang dialogue flows (topic check, jailbreak check, output check)
     """
+    import os
+    from dotenv import load_dotenv
+    load_dotenv()
+
+    # Force the OpenAI client (used internally by NeMo) to route via OpenRouter.
+    # NeMo ignores OPENAI_BASE_URL unless we set it explicitly before LLMRails init.
+    os.environ.setdefault("OPENAI_BASE_URL", "https://openrouter.ai/api/v1")
+
     from nemoguardrails import RailsConfig, LLMRails
     config = RailsConfig.from_path(GUARDRAILS_CONFIG_DIR)
     rails  = LLMRails(config)
     return rails
+
 
 
 async def check_input_rail(text: str, rails=None) -> dict:
