@@ -3,7 +3,7 @@ models:
     engine: openai
     model: openai/gpt-4o-mini
     parameters:
-      openai_api_base: "https://openrouter.ai/api/v1"
+      base_url: "https://openrouter.ai/api/v1"
       extra_headers:
         HTTP-Referer: "https://github.com/chutuanviet1302/Day24-Track3-ChuTuanViet-2A202601082"
         X-Title: "RAG Guard Stack Day24"
