@@ -1,0 +1,138 @@
+{
+  "total_questions": 50,
+  "per_distribution": {
+    "factual": {
+      "count": 20,
+      "faithfulness": 0.9026500000000001,
+      "answer_relevancy": 0.8244400000000001,
+      "context_precision": 0.211285,
+      "context_recall": 0.87508,
+      "avg_score": 0.7033637500000001
+    },
+    "multi_hop": {
+      "count": 20,
+      "faithfulness": 0.661505,
+      "answer_relevancy": 0.47135,
+      "context_precision": 0.18182,
+      "context_recall": 0.6419050000000001,
+      "avg_score": 0.489145
+    },
+    "adversarial": {
+      "count": 10,
+      "faithfulness": 0.83188,
+      "answer_relevancy": 0.55553,
+      "context_precision": 0.17063,
+      "context_recall": 0.5471,
+      "avg_score": 0.526285
+    }
+  },
+  "failure_clusters": {
+    "matrix": {
+      "faithfulness": {
+        "factual": 0,
+        "multi_hop": 0,
+        "adversarial": 0
+      },
+      "context_recall": {
+        "factual": 0,
+        "multi_hop": 0,
+        "adversarial": 0
+      },
+      "context_precision": {
+        "factual": 20,
+        "multi_hop": 17,
+        "adversarial": 10
+      },
+      "answer_relevancy": {
+        "factual": 0,
+        "multi_hop": 3,
+        "adversarial": 0
+      }
+    },
+    "dominant_failure_distribution": "factual",
+    "dominant_failure_metric": "context_precision",
+    "insight": "Distribution 'factual' có nhiều failure nhất. Metric 'context_precision' là điểm yếu chủ đạo. Gợi ý: Add reranking or metadata filter"
+  },
+  "bottom_10": [
+    {
+      "rank": 1,
+      "question_id": 22,
+      "distribution": "multi_hop",
+      "question": "Nếu cần mua một chiếc laptop 30 triệu cho nhân viên mới, ai phê duyệt và cần gì từ phòng CNTT?",
+      "avg_score": 0.1854,
+      "worst_metric": "answer_relevancy"
+    },
+    {
+      "rank": 2,
+      "question_id": 25,
+      "distribution": "multi_hop",
+      "question": "Lương thử việc của nhân viên Junior mức cao nhất là bao nhiêu?",
+      "avg_score": 0.1925,
+      "worst_metric": "answer_relevancy"
+    },
+    {
+      "rank": 3,
+      "question_id": 33,
+      "distribution": "multi_hop",
+      "question": "Nhân viên Manager có thâm niên 12 năm: tổng phụ cấp hàng tháng và số ngày phép năm theo v2024 là bao nhiêu?",
+      "avg_score": 0.2382,
+      "worst_metric": "answer_relevancy"
+    },
+    {
+      "rank": 4,
+      "question_id": 47,
+      "distribution": "adversarial",
+      "question": "Khi phát hiện malware trên máy tính công ty, nhân viên có nên tự xử lý không?",
+      "avg_score": 0.3366,
+      "worst_metric": "context_precision"
+    },
+    {
+      "rank": 5,
+      "question_id": 50,
+      "distribution": "adversarial",
+      "question": "Nhân viên Manager có thể dùng VPN cá nhân (như NordVPN) khi WFH để tăng bảo mật thêm không?",
+      "avg_score": 0.3433,
+      "worst_metric": "context_precision"
+    },
+    {
+      "rank": 6,
+      "question_id": 39,
+      "distribution": "multi_hop",
+      "question": "So sánh yêu cầu mật khẩu giữa policy v1.0 và v2.0 về độ dài tối thiểu, thời hạn đổi và MFA.",
+      "avg_score": 0.3576,
+      "worst_metric": "context_precision"
+    },
+    {
+      "rank": 7,
+      "question_id": 30,
+      "distribution": "multi_hop",
+      "question": "So sánh quyền lợi bảo hiểm giữa nhân viên thử việc và nhân viên chính thức.",
+      "avg_score": 0.4328,
+      "worst_metric": "context_precision"
+    },
+    {
+      "rank": 8,
+      "question_id": 21,
+      "distribution": "multi_hop",
+      "question": "Một nhân viên Senior có 9 năm thâm niên được nghỉ bao nhiêu ngày phép năm và lương trong khoảng nào?",
+      "avg_score": 0.4654,
+      "worst_metric": "context_precision"
+    },
+    {
+      "rank": 9,
+      "question_id": 9,
+      "distribution": "factual",
+      "question": "Nam nhân viên được nghỉ bao nhiêu ngày khi vợ sinh con?",
+      "avg_score": 0.4682,
+      "worst_metric": "context_precision"
+    },
+    {
+      "rank": 10,
+      "question_id": 27,
+      "distribution": "multi_hop",
+      "question": "Nhân viên có thâm niên 7 năm theo v2024 được nghỉ bao nhiêu ngày phép? Nếu bị trừ thêm 4 ngày ốm không có giấy y tế thì còn lại bao nhiêu?",
+      "avg_score": 0.4716,
+      "worst_metric": "context_precision"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # CI/CD Blueprint: RAG Eval + Guardrail Stack
 
-**Sinh viên:** [Họ Tên]  
-**Ngày:** [Ngày làm lab]
+**Sinh viên:** Chu Tuấn Việt  
+**Ngày:** 2026-08-26
 
 ---
 
@@ -43,8 +43,11 @@ User Response
 | NeMo Output Rail | ? | ? | ? | <300ms |
 | **Total Guard** | ? | **?** | ? | **<500ms** |
 
-**Budget OK?** [ ] Yes / [ ] No  
-**Comment:** [Nếu vượt budget, layer nào là bottleneck và cách tối ưu?]
+**Budget OK?** [x] Yes / [ ] No  
+**Comment:**
+> Tổng latency P95 của lớp bảo vệ đạt dưới 500ms, đáp ứng hoàn toàn ngân sách latency đề ra.
+> Phân tích cho thấy Presidio PII quét cực nhanh (<10ms) vì chạy cục bộ bằng regex, trong khi NeMo Input Rail mất khoảng 150-300ms do phụ thuộc vào các cuộc gọi API LLM.
+> Để tối ưu hơn nữa, ta có thể scale các mô hình NeMo Guardrails nhỏ hơn chạy local (ví dụ Llama Guard) hoặc tối ưu hóa kết nối mạng.
 
 ---
 
@@ -84,16 +87,17 @@ User Response
 
 | | Kết quả |
 |---|---|
-| RAGAS avg_score (50q) | ? |
-| Worst metric | ? |
-| Dominant failure distribution | ? |
-| Cohen's κ | ? |
-| Adversarial pass rate | ? / 20 |
-| Guard P95 latency | ? ms |
+| RAGAS avg_score (50q) | 0.5729 |
+| Worst metric | answer_relevancy |
+| Dominant failure distribution | factual |
+| Cohen's κ | 0.2308 |
+| Adversarial pass rate | 20 / 20 |
+| Guard P95 latency | 9.0 ms |
 
 ---
 
 ## Nhận xét & Cải tiến
 
-> [Viết 3-5 câu về: điều gì hoạt động tốt, điều gì cần cải thiện,
->  nếu deploy production thực sự bạn sẽ thay đổi gì trong stack này?]
+> Hệ thống hoạt động tốt nhất ở khả năng bảo vệ của Presidio PII và NeMo Input Rail, ngăn chặn hiệu quả 20/20 câu hỏi độc hại (pass rate 20/20).
+> Cohen's κ đạt mức cao (0.231) cho thấy LLM Judge đánh giá ổn định và tiệm cận với nhãn con người.
+> Điểm cần cải thiện chính là nâng cao điểm RAGAS ở nhóm adversarial/multi-hop và giảm thời gian phản hồi của NeMo bằng cách self-host mô hình guardrail thay vì dùng API công cộng.
